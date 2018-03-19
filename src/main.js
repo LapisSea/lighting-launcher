@@ -24,7 +24,6 @@ function createWin(){
 		height: winState.height,
 		minHeight: 200,
 		minWidth: 300,
-		frame: false,
 		show: false,
 		icon: path.join(__dirname, 'assets/Ico64.png'),
 		webPreferences: {'experimentalFeatures': true}
@@ -35,6 +34,7 @@ function createWin(){
 	});
 	
 	winState.manage(mainWindow);
+	mainWindow.setMenu(null);
 	mainWindow.loadURL(url.format({pathname: path.join(__dirname, 'index.html'),protocol: 'file:',slashes: true}));
 	mainWindow.on('closed', ()=>mainWindow = null);
 	if(process.argv.indexOf("-dev")!==-1){
@@ -45,6 +45,7 @@ function createWin(){
 			mainWindow.setFullScreen(!mainWindow.isFullScreen());
 		});
 	}
+	// mainWindow.webContents.toggleDevTools()
 }
 
 
