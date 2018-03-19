@@ -25,7 +25,7 @@ function createWin(){
 		minHeight: 200,
 		minWidth: 300,
 		show: false,
-		icon: path.join(__dirname, 'assets/Ico64.png'),
+		icon: path.join(__dirname, '../assets/Ico64.png'),
 		webPreferences: {'experimentalFeatures': true}
 	});
 	mainWindow.on('ready-to-show', ()=>{
