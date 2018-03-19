@@ -1,22 +1,32 @@
 {
-  "name": "electron-quick-start",
-  "version": "1.0.0",
-  "description": "A minimal Electron application",
-  "main": "main.js",
-  "scripts": {
-    "start": "electron ."
-  },
-  "repository": "https://github.com/electron/electron-quick-start",
-  "keywords": [
-    "Electron",
-    "quick",
-    "start",
-    "tutorial",
-    "demo"
-  ],
-  "author": "GitHub",
-  "license": "CC0-1.0",
-  "devDependencies": {
-    "electron": "~1.8.2"
-  }
+	"name": "lighting-launcher",
+	"version": "0.0.5",
+	"description": "Lighting Launcher",
+	"main": "main.js",
+	"scripts": {
+		"start": "electron Main.js",
+		"build": "electron-packager . lighting-launcher --out=build  --overwrite --asar --icon=./icon.ico --ignore=.bat --ignore=.editorconfig --ignore=.gitignore --ignore=icon.ico --ignore=package-lock.json --ignore=README.md"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/LapisSea/lighting-launcher.git"
+	},
+	"author": "LapisSea",
+	"license": "ISC",
+	"bugs": {
+		"url": "https://github.com/LapisSea/lighting-launcher/issues"
+	},
+	"homepage": "https://github.com/LapisSea/lighting-launcher#readme",
+	"win": {
+		"target": "squirrel",
+		"icon": "./icon.ico"
+	},
+	"dependencies": {
+		"electron-window-state": "^4.1.1",
+		"shelljs": "^0.8.1"
+	},
+	"devDependencies": {
+		"electron": "^1.8.4",
+		"electron-packager": "^11.1.0"
+	}
 }

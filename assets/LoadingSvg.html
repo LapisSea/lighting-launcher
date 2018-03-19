@@ -1,0 +1,48 @@
+<svg class="LoadingSvg" viewBox="0 0 100 100">
+	<style>
+	#clip-rect{
+		animation: cliprect-anim 2s ease infinite;
+		transform-origin: 0% 50%;
+		width:50%;
+		height:20%;
+	}
+	#shape{
+		stroke-width:10%;
+		animation: shape-anim 2s ease infinite;
+		transform: translateX(55%);
+	  }
+	@keyframes cliprect-anim{
+		0%{height:20%;y: 40%;}
+		15%{height:50%;y: 25%;}
+		65%{height:50%;y: 25%;}
+		80%{height:20%;y: 40%;}
+		100%{height:20%;y: 40%;}
+	}
+	@keyframes shape-anim{
+		0%{stroke-width:10%;}
+		15%{stroke-width:4%;}
+		65%{stroke-width:4%;}
+		80%{stroke-width:10%;}
+		100%{stroke-width:10%;}
+	}
+</style>
+	<clipPath id="cric-clip">
+	<rect id="clip-rect" y="50%"><animateTransform 
+		attributeName="transform" 
+		attributeType="XML" 
+		type="rotate" 
+		from="0 0 0" 
+		to="360 0 0" 
+		dur="0.4s" 
+		repeatCount="indefinite"
+	/></rect>
+	</clipPath>
+	<circle 
+		id="shape" 
+		cy="50%"
+		r="45%" 
+		stroke="white"
+		stroke-width="10%" 
+		fill="none" 
+		clip-path="url(#cric-clip)"/>
+</svg>
