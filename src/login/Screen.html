@@ -1,47 +1,50 @@
 <div class="CenterBoth ui" id="LoginUI">
+	<div style="position: relative;">
+			<div id="LoginLoadWrapp">
+				<div class="CenterBoth" id="LoginLoad"></div>
+			</div>
+		<div id="Title">
+			Login
+		</div>
+		<div>
+			<table id="nonpremium" show=false>
+				<tr>
+					<th>Username </th>
+					<th>
+						<input type="text" id="Username">
+					</th>
+				</tr>
+				<tr>
+					<th></th>
+					<th style="text-align: right;">
+						<input type="button" value="Start" onclick="Login.loginNonpremium()">
+					</th>
+				</tr>
+			</table>
+			<table id="premium" show=true>
+				<tr>
+					<th>Email </th>
+					<th>
+						<input type="email" id="Email">
+					</th>
+				</tr>
+				<tr>
+					<th>Password </th>
+					<th>
+						<input type="password" id="Password">
+					</th>
+				</tr>
+				<tr>
+					<th></th>
+					<th style="text-align: right;">
+						<input type="button" value="Login" onclick="Login.loginPremium()">
+					</th>
+				</tr>
+			</table>
+		</div>
 
-    <div>
-        <div id="Title">Login</div>
-        <div>
-
-            <table id="nonpremium" show=false>
-                <tr>
-                    <th>Username </th>
-                    <th>
-                        <input type="text" id="Username">
-                    </th>
-                </tr>
-                <tr>
-                    <th></th>
-                    <th style="text-align: right;">
-                        <input type="button" value="Start" onclick="Login.loginNonpremium()">
-                    </th>
-                </tr>
-            </table>
-            <table id="premium" show=true>
-                <tr>
-                    <th>Email </th>
-                    <th>
-                        <input type="email" id="Email">
-                    </th>
-                </tr>
-                <tr>
-                    <th>Password </th>
-                    <th>
-                        <input type="password" id="Password">
-                    </th>
-                </tr>
-                <tr>
-                    <th></th>
-                    <th style="text-align: right;">
-                        <input type="button" value="Login" onclick="Login.loginPremium()">
-                    </th>
-                </tr>
-            </table>
-        </div>
-
-        <div style="width:100%;">
-            <input type="checkbox" id="prem" checked onclick="Login.updateMode(this.checked)"> Premium account
-        </div>
-    </div>
+		<div style="width:100%;">
+			<input type="checkbox" id="prem" checked onclick="Login.updateMode(this.checked)"> Premium account
+		</div>
+	</div>
 </div>

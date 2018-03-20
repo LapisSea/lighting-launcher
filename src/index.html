@@ -9,30 +9,45 @@
 </head>
 
 <body MainLoad>
+	<div id="loader" class="hidden"></div>
 	<div id="UI">
 		<div class="CenterBoth ui" showing style="background: #F0F0F0">
 			<link rel="import" href="../assets/LoadingSvg.html" LoadingSvg>
 			<script>
-				!function () {
-					var script = document.currentScript, src = document.querySelector("link[LoadingSvg]");
-					script.parentElement.appendChild(mainLoadingSvg = src.import.body.children[0]);
-					script.remove();
+				createLoadSvg = function () {
+					var src = document.querySelector("link[LoadingSvg]");
+					var svg = src.import.body.children[0];
 					src.remove();
-				}();
-				mainLoadingSvg.loadCount = 1;
-				mainLoadingSvg.show = function () {
-					this.loadCount++;
-					this.removeAttribute("deactivated");
-				}
-				mainLoadingSvg.hide = function () {
-					if (--this.loadCount == 0) {
-						this.setAttribute("deactivated", "");
-						this.loadCount = 0;
+					return function () {
+						var s = svg.cloneNode(true);
+
+						s.loadCount = 1;
+						s.show = function () {
+							this.loadCount++;
+							this.removeAttribute("deactivated");
+						}
+						s.hide = function () {
+							if (--this.loadCount <= 0) {
+								this.setAttribute("deactivated", "");
+								this.loadCount = 0;
+							}
+						}
+						s.style.filter = "drop-shadow(0px 10px 5px rgba(0,0,0,0.3))";
+						return s;
 					}
+				}();
+
+				loadSvgAutoPlace = function (styling) {
+					let svg = createLoadSvg();
+					styling(svg);
+					document.currentScript.parentElement.appendChild(svg);
+					document.currentScript.remove();
 				}
-				mainLoadingSvg.style.width = "100px"
-				mainLoadingSvg.style.height = "100px"
-				mainLoadingSvg.style.filter = "drop-shadow(0px 10px 5px rgba(0,0,0,0.3))"
+
+				loadSvgAutoPlace(svg => {
+					svg.style.width = "100px";
+					svg.style.height = "100px";
+				});
 			</script>
 		</div>
 	</div>

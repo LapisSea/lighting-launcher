@@ -47,8 +47,8 @@ body, html{
     position: absolute;
     top: -99999px;
     left: -99999px;
-    display: none;
     opacity: 0;
+    z-index: -99999;
 }
 
 input[type=checkbox]{
@@ -95,6 +95,10 @@ input[type=button]{
     cursor: pointer;
     transition: background 0.1s;
 }
+input[type=button]:hover{
+    background: #EEEEEE;
+}
 input[type=button]:active{
     background: #E0E0E0;
+    box-shadow: 0 0.5px 3px rgba(0,0,0,0.25);
 }

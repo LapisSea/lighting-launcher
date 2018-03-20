@@ -6,7 +6,7 @@
 	}
 	table{
 		overflow-y: hidden;
-		transition: transform 0.2s, opacity 0.15s;
+		transition: transform 0.2s,height 0.2s, opacity 0.15s;
 		//transition-timing-function: cubic-bezier(0.785, 0.135, 0.15, 0.86);
 		display: block;
 		
@@ -16,13 +16,42 @@
 		}
 	}
 	
-	#nonpremium{
+	table[show=true]#nonpremium{
 		height: 106px;
-		margin-bottom: -106px;
+	}
+	table[show=true]#premium{
+		height: 155px;
 	}
 
 	table[show=false]{
 		opacity:0;
-		transform: rotateX(90deg)
+		height:0;
+		//transform: rotateX(90deg)
+	}
+	#LoginLoad{
+		background: rgba(0,0,0,0.2);
+		position: absolute;
+		width: 100%;
+		height: 100%;
+		border: 5px solid white;
+		margin: -10px;
+		padding: 5px;
+		box-shadow: 0 3px 13px rgba(0,0,0,0.2), inset 0 0 15px rgba(0, 0, 0, 0.05);
+		border-radius: 3px;
+	}
+	#LoginLoadWrapp{
+		height: 100%;
+		width: 100%;
+		opacity: 0;
+		transition: opacity 0.2s;
+		pointer-events: none;
+	}
+	#LoginLoadWrapp:not([show]) *{
+		display: none;
+	}
+	#LoginLoadWrapp[show]{
+		opacity: 1;
+		transition: opacity 0.2s;
+		pointer-events: all;
 	}
 }
