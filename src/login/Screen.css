@@ -1,0 +1,27 @@
+#LoginUI #Title {
+  font-size: 220%;
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+#LoginUI table {
+  overflow-y: hidden;
+  transition: transform 0.2s, opacity 0.15s;
+  display: block;
+}
+
+#LoginUI table th {
+  padding: 10px 0;
+  padding-left: 5px;
+}
+
+#LoginUI #nonpremium {
+  height: 106px;
+  margin-bottom: -106px;
+}
+
+#LoginUI table[show=false] {
+  opacity: 0;
+  transform: rotateX(90deg);
+}
+/*# sourceMappingURL=Screen.css.map */

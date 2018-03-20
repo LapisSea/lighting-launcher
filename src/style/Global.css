@@ -2,14 +2,19 @@
     margin: 0px;
     padding: 0px;
 }
+input{
+    outline: none;
+    font-size: inherit;
+}
 
 body, html{
     width: 100%;
     height: 100%;
     background: white;
-}
-body[MainLoad]{
-    background: #F0F0F0;
+    font-family: Arial;
+    font-weight: lighter;
+    font-size: 20px;
+    overflow: hidden;
 }
 
 .CenterBoth{
@@ -18,4 +23,78 @@ body[MainLoad]{
     align-items: center;
     width: 100%;
     height: 100%;
+}
+
+.ui{
+    width: 100%;
+    height: 100%;
+    transform: scale(1.2);
+    opacity: 0;
+    transition: transform 0.2s, opacity 0.2s;
+
+    position: absolute;
+    top: 0px;
+    left: 0px;
+
+    overflow: auto;
+}
+.ui[showing]{
+    transform: none;
+    opacity: 1;
+}
+
+.hidden{
+    position: absolute;
+    top: -99999px;
+    left: -99999px;
+    display: none;
+    opacity: 0;
+}
+
+input[type=checkbox]{
+    -webkit-appearance: none;
+    appearance: none;
+
+    width: 1em;
+    height: 1em;
+    border: 1px solid #E0E0E0;
+    box-shadow: 0 1px 6px rgba(0,0,0,0.2);
+    cursor: pointer;
+    overflow: hidden;
+    background: #F0F0F0;
+}
+input[type=checkbox]:checked{
+    background: #2586EB;
+}
+
+input[type=checkbox]::after{
+    content:" ";
+    
+    display: block;
+    background: #2586EB;
+    transition: width 0.2s,height 0.2s,margin 0.2s, border-radius 0.1s;
+    
+    margin: 0.5em;
+    width: 0px;
+    height: 0px;
+    border-radius: 100%;
+}
+input[type=checkbox]:checked::after{
+
+    margin: 0em;
+    width: 1em;
+    height: 1em;
+    border-radius: 0%;
+}
+
+input[type=button]{
+    border: 1px solid #E0E0E0;
+    background: #F0F0F0;
+    box-shadow: 0 1px 6px rgba(0,0,0,0.2);
+    padding: 0.2em 0.6em;
+    cursor: pointer;
+    transition: background 0.1s;
+}
+input[type=button]:active{
+    background: #E0E0E0;
 }

@@ -8,3 +8,8 @@ NodeList.prototype.remove = HTMLCollection.prototype.remove = function() {
 		}
 	}
 }
+
+function lod(name, path=name){
+	if(!(name in window))window[name]=require(path);
+	return window[name];
+}

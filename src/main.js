@@ -25,6 +25,7 @@ function createWin(){
 		minHeight: 200,
 		minWidth: 300,
 		show: false,
+		alwaysOnTop: true,
 		icon: path.join(__dirname, '../assets/Ico64.png'),
 		webPreferences: {'experimentalFeatures': true}
 	});
@@ -35,7 +36,7 @@ function createWin(){
 	
 	winState.manage(mainWindow);
 	mainWindow.setMenu(null);
-	mainWindow.loadURL(url.format({pathname: path.join(__dirname, 'index.html'),protocol: 'file:',slashes: true}));
+	mainWindow.loadURL(url.format({pathname: path.join(__dirname, 'index.html'),protocol: 'file:'}));
 	mainWindow.on('closed', ()=>mainWindow = null);
 	if(process.argv.indexOf("-dev")!==-1){
 		globalShortcut.register('F5',()=>mainWindow.reload());
@@ -45,7 +46,6 @@ function createWin(){
 			mainWindow.setFullScreen(!mainWindow.isFullScreen());
 		});
 	}
-	// mainWindow.webContents.toggleDevTools()
 }
 
 
