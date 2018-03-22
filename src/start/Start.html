@@ -1,5 +1,9 @@
-<div class="ui" id="StartUI">
+<div class="ui" id="StartUI" onresize="Start.onResize()">
 	<input type="button" id="Logout" value="Logout">
+	<div id="Profiles">
+		<div class="list"></div>
+		<div class="search"></div>
+	</div>
 	<div id="Settings">
 		<table>
 			<tr>
@@ -23,8 +27,8 @@
 			<tr>
 				<th>Resolution</th>
 				<th>
-					<input type="number" id="resx"> 🞨
-					<input type="number" id="resy">
+					<input type="number" id="resx" value=800> 🞨
+					<input type="number" id="resy" value=600>
 					<input type="button" value="Change" onclick="Start.sizeConfig(this)">
 				</th>
 			</tr>

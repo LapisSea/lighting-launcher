@@ -16,13 +16,22 @@
 		}
 
 		body {
-			background: rgba(0, 0, 0, 0.2);
+			background: rgba(0, 0, 0, 0.3);
+			transition: opacity 0.3s, background 0.3s, transform 0.3s;
+			transition-timing-function: cubic-bezier(0.075, 0.82, 0.165, 1);
+		}
+		body[hide]{
+			opacity: 0;
+			pointer-events: none;
+			background: rgba(0, 0, 0, 0);
+			transform: scale(1.2);
 		}
 
 		#selection {
 			position: fixed;
 			background: rgba(255, 255, 255, 0.4);
 			position: relative;
+			border: 1px solid black;
 		}
 
 		#options {
@@ -32,9 +41,9 @@
 
 		.btn {
 			position: absolute;
-			margin: -6px;
-			width: 10px;
-			height: 10px;
+			margin: -1px;
+			width: 12px;
+			height: 12px;
 			background: rgba(255, 255, 255, 0.6);
 			border: 1px solid black;
 		}
@@ -46,7 +55,7 @@
 	</style>
 </head>
 
-<body>
+<body hide>
 	<div id="selection" class="CenterBoth">
 		<div class="btn" style="top:0;left:0"></div>
 		<div class="btn" style="top:50%;left:0"></div>
@@ -58,12 +67,14 @@
 		<div class="btn" style="top:0;left:50%"></div>
 
 		<div id="options">
-			<input type="button" value="Cancel" onclick="ipcRenderer.send('ResolutionEnd', false);">
-			<input type="button" value="Apply" onclick="ipcRenderer.send('ResolutionEnd', true);">
+			<input type="button" value="Cancel" onclick="document.body.setAttribute('hide','');setTimeout(() => ipcRenderer.send('ResolutionEnd', false), 300);">
+			<input type="button" value="Apply"  onclick="document.body.setAttribute('hide','');setTimeout(() => ipcRenderer.send('ResolutionEnd', true), 300);">
 		</div>
 	</div>
 
 	<script>
+		setTimeout(() => document.body.removeAttribute('hide'), 1);
+
 		const ipcRenderer = require('electron').ipcRenderer;
 
 		function getUrlValue(name, url = window.location.href) {
@@ -73,7 +84,7 @@
 			if (!results[2]) return '';
 			return decodeURIComponent(results[2].replace(/\+/g, " "));
 		}
-
+		console.log(getUrlValue("x"),getUrlValue("y"))
 		selection = document.getElementById("selection");
 		selection.style.width = getUrlValue("x") + "px";
 		selection.style.height = getUrlValue("y") + "px";

@@ -16,6 +16,10 @@ var ui=document.getElementById("UI");
 var showingUi=ui.children[0];
 var loader=document.getElementById("loader");
 
+function __onresize(){
+    showingUi.onresize();
+}
+
 function showUI(newUi){
     var hidingUi=showingUi;
     showingUi=newUi;

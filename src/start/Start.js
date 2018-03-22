@@ -5,25 +5,21 @@ window.Start = function () {
 	var startDoom = loadHtml(fs.readFileSync("src/start/Start.html").toString());
 	var resx=startDoom.querySelector("#resx");
 	var resy=startDoom.querySelector("#resy");
+	var fuck you man like for real wtf just fuck you this shit has to stop okay? no you just need to fuck off to oblivion. 
 
-	var ipcRenderer=lod("electron").ipcRenderer;
-	var resizeWindow;
-	var closeHook;
-	var resizeEnd;
-	
+	var ipcRenderer=lod("electron").ipcRenderer,resizeWindow,closeHook,resizeEnd;
+	ipcRenderer.on("ResolutionX",(event, arg) => resx.value=arg+1);
+	ipcRenderer.on("ResolutionY",(event, arg) => resy.value=arg+1);
 	ipcRenderer.on("ResolutionEnd",(event, arg) => {
 		resizeEnd=arg;
 		resizeWindow.close();
 		closeHook();
 	});
-	ipcRenderer.on("ResolutionX",(event, arg) => {
-		resx.value=arg;
-	});
-	ipcRenderer.on("ResolutionY",(event, arg) => {
-		resy.value=arg;
-	});
 
 	return {
+		onResize:function(){
+			
+		},
 		show: function () {
 			showUI(startDoom);
 		},
@@ -44,8 +40,8 @@ window.Start = function () {
 				frame: false,
 				show: false
 			});
-			window.win=resizeWindow;
-			resizeWindow.loadURL(lod("url").format({ pathname: lod("path").join(__dirname, "start/sizewin/index.html"), protocol: 'file:' }));
+
+			resizeWindow.loadURL(lod("url").format({ pathname: lod("path").join(__dirname, "start/sizewin/index.html"), protocol: 'file:' })+"?x="+orgSize.x+"&y="+orgSize.y);
 			
 			resizeWindow.show();
 			resizeWindow.focus();
