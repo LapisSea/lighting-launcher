@@ -4,7 +4,13 @@
 // if(!("fs"   in window))fs  =require('fs');
 // if(!("AES"  in window))AES =require('crypto-js/aes');
 
-//lod("electron");
+lod("electron");
+var {ipcRenderer, remote} = electron;
+
+var inited=false;
+ipcRenderer.send('init', 0);
+
+
 
 var ui=document.getElementById("UI");
 var showingUi=ui.children[0];
@@ -37,3 +43,18 @@ function loadHtml(text){
         return e;
     }else return undefined;
 }
+
+function writeAppFile(name, content){
+    lod("fs").writeFileSync(appdata+"/"+name, content, 'utf-8');
+}
+function readAppFile(name){
+    return lod("fs").readFileSync(appdata+"/"+name).toString();
+}
+
+(function(){
+    var f=function(){
+        if(inited)getClass("Login");
+        else setTimeout(f, 2);
+    }
+    f();
+})();

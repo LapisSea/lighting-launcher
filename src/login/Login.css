@@ -1,3 +1,7 @@
+#LoginUI input[type=password], #LoginUI input[type=email], #LoginUI input[type=text] {
+  transition: background 0.3s;
+}
+
 #LoginUI #Title {
   font-size: 220%;
   text-align: center;
@@ -16,11 +20,11 @@
 }
 
 #LoginUI table[show=true]#nonpremium {
-  height: 106px;
+  height: 116px;
 }
 
 #LoginUI table[show=true]#premium {
-  height: 155px;
+  height: 165px;
 }
 
 #LoginUI table[show=false] {
@@ -56,5 +60,13 @@
   opacity: 1;
   transition: opacity 0.2s;
   pointer-events: all;
+}
+
+#LoginUI input[valid=true] {
+  background: #beffbe;
+}
+
+#LoginUI input[valid=false] {
+  background: #ffbebe;
 }
 /*# sourceMappingURL=Screen.css.map */

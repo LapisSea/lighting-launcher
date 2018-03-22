@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<title>Lighting launcher</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="../../style/Global.css">
+	<style>
+		* {
+			user-select: none;
+		}
+
+		html {
+			background: transparent;
+		}
+
+		body {
+			background: rgba(0, 0, 0, 0.2);
+		}
+
+		#selection {
+			position: fixed;
+			background: rgba(255, 255, 255, 0.4);
+			position: relative;
+		}
+
+		#options {
+			transition: opacity 0.2s;
+			text-align: center;
+		}
+
+		.btn {
+			position: absolute;
+			margin: -6px;
+			width: 10px;
+			height: 10px;
+			background: rgba(255, 255, 255, 0.6);
+			border: 1px solid black;
+		}
+
+		#selection[moving] #options {
+			opacity: 0;
+			pointer-events: none;
+		}
+	</style>
+</head>
+
+<body>
+	<div id="selection" class="CenterBoth">
+		<div class="btn" style="top:0;left:0"></div>
+		<div class="btn" style="top:50%;left:0"></div>
+		<div class="btn" style="bottom:0;left:0"></div>
+		<div class="btn" style="bottom:0;left:50%"></div>
+		<div class="btn" style="bottom:0;right:0"></div>
+		<div class="btn" style="top:50%;right:0"></div>
+		<div class="btn" style="top:0;right:0"></div>
+		<div class="btn" style="top:0;left:50%"></div>
+
+		<div id="options">
+			<input type="button" value="Cancel" onclick="ipcRenderer.send('ResolutionEnd', false);">
+			<input type="button" value="Apply" onclick="ipcRenderer.send('ResolutionEnd', true);">
+		</div>
+	</div>
+
+	<script>
+		const ipcRenderer = require('electron').ipcRenderer;
+
+		function getUrlValue(name, url = window.location.href) {
+			name = name.replace(/[\[\]]/g, "\\$&");
+			var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"), results = regex.exec(url);
+			if (!results) return undefined;
+			if (!results[2]) return '';
+			return decodeURIComponent(results[2].replace(/\+/g, " "));
+		}
+
+		selection = document.getElementById("selection");
+		selection.style.width = getUrlValue("x") + "px";
+		selection.style.height = getUrlValue("y") + "px";
+		selection.style.left=(document.body.clientWidth-selection.clientWidth)/2+"px";
+		selection.style.top=(document.body.clientHeight-selection.clientHeight)/2+"px";
+
+		btns = document.getElementsByClassName("btn");
+		bounds = {
+			setMaxX: function (x) {
+				var left = selection.offsetLeft;
+				var w = selection.clientWidth
+				selection.style.left = x + "px";
+				selection.style.width = Math.max(w + left - x, 50) + "px";
+
+				if (selection.clientWidth + selection.offsetLeft > document.body.clientWidth) this.setMinX(document.body.clientWidth);
+
+				ipcRenderer.send('ResolutionX', selection.clientWidth);
+			},
+			setMinX: function (x) {
+				var left = selection.offsetLeft;
+				var w = selection.clientWidth
+				var diff = x - left;
+				if (diff < 50) selection.style.left = (left + diff - 50) + "px";
+				selection.style.width = Math.max(diff, 50) + "px";
+
+				if (selection.offsetLeft < 0) this.setMaxX(0);
+
+				ipcRenderer.send('ResolutionX', selection.clientWidth);
+			},
+			setMaxY: function (y) {
+				var top = selection.offsetTop
+				var h = selection.clientHeight;
+				selection.style.top = y + "px";
+				selection.style.height = Math.max(h + top - y, 50) + "px";
+
+				if (selection.offsetTop + selection.clientHeight > document.body.clientHeight) this.setMinY(document.body.clientHeight);
+
+				ipcRenderer.send('ResolutionY', selection.clientHeight);
+			},
+			setMinY: function (y) {
+				var top = selection.offsetTop
+				var h = selection.clientHeight;
+				var diff = y - top;
+				if (diff < 50) selection.style.top = (top + diff - 50) + "px";
+				selection.style.height = Math.max(diff, 50) + "px";
+
+				if (selection.offsetTop < 0) this.setMaxY(0);
+
+				ipcRenderer.send('ResolutionY', selection.clientHeight);
+			}
+		}
+		for (let i = 0; i < btns.length; i++) {
+			const btn = btns[i];
+			btn.onmousedown = function (e) {
+				this.down = true;
+				selection.setAttribute("moving", "");
+			}
+			btn.onmove = function (e) {
+				if (!this.down) return;
+				this.move(e.clientX, e.clientY);
+			}
+		}
+		btns[0].move = function (x, y) { bounds.setMaxX(x); bounds.setMaxY(y); }
+		btns[1].move = function (x, y) { bounds.setMaxX(x); }
+		btns[2].move = function (x, y) { bounds.setMaxX(x); bounds.setMinY(y); }
+		btns[3].move = function (x, y) { bounds.setMinY(y); }
+		btns[4].move = function (x, y) { bounds.setMinX(x); bounds.setMinY(y); }
+		btns[5].move = function (x, y) { bounds.setMinX(x); }
+		btns[6].move = function (x, y) { bounds.setMinX(x); bounds.setMaxY(y); }
+		btns[7].move = function (x, y) { bounds.setMaxY(y); }
+
+		window.onmousemove = function (e) {
+			for (let i = 0; i < btns.length; i++) {
+				btns[i].onmove(e);
+			}
+		}
+		window.onmouseup = function (e) {
+			for (let i = 0; i < btns.length; i++) {
+				btns[i].down = false;
+			}
+			selection.removeAttribute("moving");
+		}
+
+	</script>
+</body>
+
+</html>
