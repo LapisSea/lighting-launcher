@@ -83,20 +83,22 @@
   flex-grow: 1;
   text-align: center;
   flex-basis: 0;
-  transition: margin 0.3s, max-width 0.3s, padding 0.3s, opacity 0.6s, background 0.5s, box-shadow 0.3s;
+  transition: margin 0.3s, max-width 0.3s, padding 0.3s, opacity 0.6s, box-shadow 0.3s;
   transition-timing-function: cubic-bezier(0.075, 0.82, 0.165, 1);
   cursor: pointer;
   box-sizing: content-box;
   box-shadow: inset 0 0 0 0 rgba(0, 149, 255, 0.41);
 }
 
-#StartUI #profiles .entry[selected] {
-  background: #d4e5ff;
-  pointer-events: none;
+#StartUI #profiles .entry:focus {
+  box-shadow: inset 0 0 6px 0.8em rgba(212, 229, 255, 0.5);
 }
 
-#StartUI #profiles .entry:focus {
-  box-shadow: inset 0 0 6px 0.8em rgba(0, 149, 255, 0.41);
+#StartUI #profiles .entry[selected] {
+  transition: margin 0.3s, max-width 0.3s, padding 0.3s, opacity 0.6s;
+  background: #d4e5ff;
+  pointer-events: none;
+  box-shadow: none;
 }
 
 #StartUI #profiles .entry[match="false"] {

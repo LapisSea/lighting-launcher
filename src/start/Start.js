@@ -37,10 +37,10 @@ window.Start = function () {
 	}
 	profiles.search.onkeydown = function (e) {
 		if (e.key == "Tab") {
-			profiles.list.querySelector(':not([tabIndex="-1"])').focus();
+			profiles.list.querySelector('[tabIndex="1"]').focus();
 			e.preventDefault();
 		} else if (e.key == "Enter" && profiles.list.count == 1) {
-			profiles.list.querySelector(':not([tabIndex="-1"])').onclick();
+			profiles.list.querySelector('[tabIndex="-1"]').onclick();
 			e.preventDefault();
 		} else setTimeout(() => profiles.list.filterBy(this.value), 0);
 
@@ -72,9 +72,8 @@ window.Start = function () {
 			return compare(a.lastUsed, b.lastUsed);
 		});
 
-		profiles.list.children.remove();
 		for (let i = 0; i < ch.length; i++) {
-			profiles.list.appendChild(ch[i]);
+			ch[i].tabIndex=ch[i].style.order=ch[i].pos=i;
 		}
 	}
 
@@ -94,7 +93,7 @@ window.Start = function () {
 			child.match = search == "" || child.profile.name.contains(search) && !selected;
 			if (child.match) {
 				this.count++;
-				child.tabIndex = selected ? -1 : 0;
+				child.tabIndex = selected ? -1 : child.pos;
 			} else child.tabIndex = -1
 
 			child.setAttribute("match", child.match);
@@ -135,19 +134,18 @@ window.Start = function () {
 	(async function () {
 		await getClass("McAuth", "login/McAuth.js");
 		var profilesRaw = McAuth.launcher_profiles.profiles;
-		var profileList = [];
+		var latestProfile;
+		
 		for (const key in profilesRaw) {
 			var profile = profilesRaw[key];
+
+			///////// PARSE ////////
 
 			if (profile.lastUsed) profile.lastUsed = new Date(profile.lastUsed);
 			if (!profile.name && profile.type !== "custom") profile.name = "<" + profile.type + ">";
 
-			profileList.push(profile);
-		}
-		profileList.sort((a, b) => compare(a.lastUsed, b.lastUsed));
+			/////// CREATE HTML ///////
 
-		for (let i1 = 0; i1 < profileList.length; i1++) {
-			const profile = profileList[i1];
 			var btn = document.createElement("div");
 			btn.className = "entry"
 			btn.profile = profile;
@@ -159,8 +157,13 @@ window.Start = function () {
 
 			profiles.list.appendChild(btn);
 			btn.style.maxWidth = btn.clientWidth + "px";
+
+			//////// FIND LATEST ////////
+			
+			if(!latestProfile||latestProfile.profile.lastUsed<profile.lastUsed)latestProfile=btn;
 		}
 		profiles.list.style.height = profiles.list.clientHeight + "px";
+		setProfile(latestProfile);
 		profiles.upd();
 	})();
 	return {
