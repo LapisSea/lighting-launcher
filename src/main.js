@@ -65,6 +65,7 @@ function createWin() {
 
 }
 
+app.commandLine.appendSwitch("touch-events", "enabled");
 
 app.on('ready', createWin);
 

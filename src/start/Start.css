@@ -1,3 +1,7 @@
+#StartUI {
+  background: #fafafa;
+}
+
 #StartUI #Logout {
   font-size: 1.2em;
   bottom: 0;
@@ -23,5 +27,154 @@
 
 #StartUI input[type=number] {
   width: 80px;
+}
+
+#StartUI #profiles {
+  width: 100%;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.1), inset 0 -1px 0 #E0E0E0;
+  margin-bottom: 10px;
+  transition-timing-function: cubic-bezier(0.075, 0.82, 0.165, 1);
+  position: absolute;
+  z-index: 1;
+  background: white;
+}
+
+#StartUI #profiles .search {
+  border-bottom: 1px solid #E0E0E0;
+  border-radius: 1em;
+  background: url(../../assets/Search.svg) 4px 4px no-repeat;
+  padding-left: 1.3em;
+  max-width: calc(100% - 2.2em);
+  width: 0;
+  cursor: pointer;
+  transition: width 0.4s, background-color 1s;
+  transition-timing-function: cubic-bezier(0.075, 0.82, 0.165, 1);
+  margin-left: 1em;
+  margin-top: 0.4em;
+  margin-bottom: 6px;
+}
+
+#StartUI #profiles .search:hover:not(:focus) {
+  background-color: #d4e5ff;
+}
+
+#StartUI #profiles .search:focus, #StartUI #profiles .search:not([value=""])[value] {
+  width: 15em;
+  cursor: initial;
+}
+
+#StartUI #profiles .search[badSearch=true] {
+  background-color: #ffcdcd;
+}
+
+#StartUI #profiles .list {
+  overflow: hidden;
+  display: flex;
+  flex-grow: 1;
+  max-width: 100%;
+}
+
+#StartUI #profiles .entry {
+  display: inline-block;
+  padding: 0.2em 0.5em;
+  border-left: 1px solid #E0E0E0;
+  border-collapse: collapse;
+  white-space: nowrap;
+  flex-grow: 1;
+  text-align: center;
+  flex-basis: 0;
+  transition: margin 0.3s, max-width 0.3s, padding 0.3s, opacity 0.6s, background 0.5s, box-shadow 0.3s;
+  transition-timing-function: cubic-bezier(0.075, 0.82, 0.165, 1);
+  cursor: pointer;
+  box-sizing: content-box;
+  box-shadow: inset 0 0 0 0 rgba(0, 149, 255, 0.41);
+}
+
+#StartUI #profiles .entry[selected] {
+  background: #d4e5ff;
+  pointer-events: none;
+}
+
+#StartUI #profiles .entry:focus {
+  box-shadow: inset 0 0 6px 0.8em rgba(0, 149, 255, 0.41);
+}
+
+#StartUI #profiles .entry[match="false"] {
+  max-width: 0px !important;
+  padding: 0px;
+  opacity: 0;
+  pointer-events: none;
+  border-left: none;
+  overflow: hidden;
+  flex-basis: initial;
+}
+
+#StartUI #profiles .entry:not([tabIndex="-1"]) {
+  max-width: 100% !important;
+}
+
+#StartUI .searchwrapp {
+  height: 2.5em;
+  transition: height 0.2s;
+  transition-timing-function: cubic-bezier(0.075, 0.82, 0.165, 1);
+  overflow: hidden;
+  float: left;
+}
+
+#StartUI #profiles:not(:hover) .searchwrapp {
+  transition: height 0.2s 0.5s;
+  height: 0px;
+}
+
+#StartUI .arrow {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 2;
+  cursor: pointer;
+  box-shadow: 0 0 10px 5px white;
+  background: white;
+  transition: box-shadow 0.2s, background 0.2s, width 0.4s, opacity 0.4s;
+  height: 100%;
+  position: absolute;
+  width: 0;
+  overflow: hidden;
+}
+
+#StartUI #arr1 {
+  left: 0;
+}
+
+#StartUI #arr2 {
+  right: 0;
+}
+
+#StartUI .arrow:hover {
+  box-shadow: 0 0 10px 5px #d4e5ff;
+  background: #d4e5ff;
+}
+
+#StartUI .listwrapp {
+  display: flex;
+  width: 100%;
+  overflow: hidden;
+  border: 0 solid #E0E0E0;
+  border-width: 1px 0;
+  position: relative;
+}
+
+#StartUI .list :first-child {
+  border: none;
+  padding-left: 1.7em;
+}
+
+#StartUI .list :last-child {
+  padding-right: 1.7em;
+}
+
+#StartUI #profiles[arrow=true] .arrow {
+  width: 1.5em;
+  text-overflow: hidden;
+  opacity: 0;
 }
 /*# sourceMappingURL=Start.css.map */

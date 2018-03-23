@@ -1,13 +1,19 @@
 *{
     margin: 0px;
     padding: 0px;
+    user-select: none;
+}
+*:focus{
+    outline: none;
 }
 input{
-    outline: none;
     font-size: inherit;
     border: 1px solid #E0E0E0;
     box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.06);
     padding: 0.2em;
+}
+input[type=button]{
+    user-select: none;
 }
 select{
     border: 1px solid #E0E0E0;
@@ -113,4 +119,46 @@ input[type=button][disabled]{
     pointer-events: none;
     color: gray;
     box-shadow:none;
+}
+
+*::-webkit-scrollbar{
+	background: #F0F0F0;
+}
+*::-webkit-scrollbar:vertical{
+	width:0.85em;
+}
+*::-webkit-scrollbar:horizontal{
+	height: 0.85em;
+}
+
+*::-webkit-scrollbar-button:horizontal{
+	width:0.85em;
+}
+*::-webkit-scrollbar-button:horizontal:increment{
+	background: url(../../assets/ArrowRight.png) no-repeat center, #E0E0E0;
+}
+*::-webkit-scrollbar-button:horizontal:decrement{
+	background: url(../../assets/ArrowLeft.png) no-repeat center, #E0E0E0;
+}
+
+
+*::-webkit-scrollbar-button:vertical{
+	height:0.85em;
+}
+*::-webkit-scrollbar-button:vertical:increment{
+	background: url(../../assets/ArrowDown.png) no-repeat center, #E0E0E0;
+}
+*::-webkit-scrollbar-button:vertical:decrement{
+	background: url(../../assets/ArrowUp.png) no-repeat center, #E0E0E0;
+}
+
+*::-webkit-scrollbar-thumb{
+	image-rendering: pixelated;
+	background: #E0E0E0
+}
+*::-webkit-scrollbar-thumb:hover,*::-webkit-scrollbar-thumb:active{
+	background:#D0D0D0;
+}
+*::-webkit-scrollbar-corner{
+	background:#E0E0E0;
 }

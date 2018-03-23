@@ -8,6 +8,14 @@ NodeList.prototype.remove = HTMLCollection.prototype.remove = function () {
 		}
 	}
 }
+NodeList.prototype.forEach = function (callback) {
+	for (var i = 0; i <this.length; i++) {
+		callback(this[i]);
+	}
+}
+String.prototype.contains = function (str) {
+	return this.indexOf(str)!==-1;
+}
 
 function lod(name, path = name) {
 	if (!(name in window)) window[name] = require(path);
@@ -30,7 +38,7 @@ async function getClass(name, loadPath=name.toLowerCase()+"/"+name+".js") {
 }
 function loadStyle(path){
 	if(document.head.querySelector("lonk[href=\""+path+"\"]"))return;
-	
+
 	var style = document.createElement("link");
 	style.rel = "stylesheet";
 	style.href = path;
@@ -47,4 +55,12 @@ function b64DecodeUnicode(str) {
     return decodeURIComponent(atob(str).split('').map(function(c) {
         return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
     }).join(''));
+}
+
+function loop(count,tim,callback){
+	if(count<=0)return;
+	setTimeout(() => {
+		callback(count);
+		loop(count-1,tim,callback);
+	}, tim);
 }

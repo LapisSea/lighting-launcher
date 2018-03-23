@@ -35,7 +35,8 @@ window.McAuth = function () {
 				try {
 					this._launcher_profiles = JSON.parse(readAppFile("../.minecraft/launcher_profiles.json"));
 				} catch (e) {}
-			}
+			}else return this._launcher_profiles;
+			
 			if (!this._launcher_profiles) {
 				try {
 					this._launcher_profiles = JSON.parse(readAppFile("launcher_profiles.json"));
